@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mira Solano — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- This banner's height shrinks as the visitor scrolls (see js/main.js) -->
+        <div class="profile-banner"></div>
+
+        <div class="wrap">
+            <div class="profile-identity">
+                <div class="profile-avatar"></div>
+                <div class="profile-info">
+                    <h1>Mira Solano</h1>
+                    <p>Illustration &middot; Character design &middot; Open for tasks</p>
+                </div>
+            </div>
+
+            <div class="profile-body">
+                <div>
+                    <h2>Portfolio</h2>
+                    <p style="color: var(--color-text-muted); margin: var(--space-2) 0 var(--space-4);">
+                        Recent work, shown as it scrolls into view.
+                    </p>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-card">Piece 01</div>
+                        <div class="portfolio-card">Piece 02</div>
+                        <div class="portfolio-card">Piece 03</div>
+                        <div class="portfolio-card">Piece 04</div>
+                    </div>
+
+                    <h2 style="margin-top: var(--space-6);">About</h2>
+                    <p style="color: var(--color-text-muted); margin-top: var(--space-2);">
+                        I've been illustrating character designs and concept art for three years.
+                        I usually turn around a single character sheet in 3–5 days depending on
+                        complexity, and I'm happy to work from a written description or existing
+                        reference art.
+                    </p>
+                </div>
+
+                <aside>
+                    <h2>Services</h2>
+                    <div class="service-list" style="margin-top: var(--space-3);">
+                        <div class="service-item">
+                            <div>
+                                <h4>Character Sheet</h4>
+                                <p style="color: var(--color-text-muted); font-size: 0.85rem;">Full body, front + back</p>
+                            </div>
+                            <span class="price">$150</span>
+                        </div>
+                        <div class="service-item">
+                            <div>
+                                <h4>Bust Portrait</h4>
+                                <p style="color: var(--color-text-muted); font-size: 0.85rem;">Shoulders up, colored</p>
+                            </div>
+                            <span class="price">$60</span>
+                        </div>
+                        <div class="service-item">
+                            <div>
+                                <h4>Icon / Avatar</h4>
+                                <p style="color: var(--color-text-muted); font-size: 0.85rem;">Simple, flat-color</p>
+                            </div>
+                            <span class="price">$25</span>
+                        </div>
+                    </div>
+                    <a href="request.html" class="btn btn-primary btn-block" style="margin-top: var(--space-4);">Send a Task Request</a>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

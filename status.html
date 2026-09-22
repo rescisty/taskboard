@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Status — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html" class="active">Status</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="wrap">
+                <h1>Task Status</h1>
+                <p>Track where your posted tasks stand. This will read live from the database once the back end is connected — for now, here's how it will look.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="wrap">
+                <table class="status-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Category</th>
+                            <th>Creator</th>
+                            <th>Budget</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Character Sheet — Fox Ranger</td>
+                            <td>Art &amp; Illustration</td>
+                            <td>Mira Solano</td>
+                            <td>$150</td>
+                            <td><span class="badge badge-progress">In Progress</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fix checkout page bug</td>
+                            <td>Coding &amp; Development</td>
+                            <td>Devon Cruz</td>
+                            <td>$80</td>
+                            <td><span class="badge badge-open">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td>Trim podcast episode 14</td>
+                            <td>Video &amp; Photo Editing</td>
+                            <td>Ana Reyes</td>
+                            <td>$45</td>
+                            <td><span class="badge badge-done">Done</span></td>
+                        </tr>
+                        <tr>
+                            <td>Rig walk cycle</td>
+                            <td>3D Modeling &amp; Rigging</td>
+                            <td>Kian Oh</td>
+                            <td>$90</td>
+                            <td><span class="badge badge-progress">In Progress</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

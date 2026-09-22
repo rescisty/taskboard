@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="wrap">
+                <h1>About TaskBoard</h1>
+                <p>Why we built a bulletin board for hired work, and who it's for.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="wrap about-grid">
+                <div>
+                    <h2>The idea</h2>
+                    <p style="color: var(--color-text-muted); margin-top: var(--space-3);">
+                        Most commission platforms are built for one kind of work — usually art.
+                        TaskBoard started from a simple question: why should a coder, an editor,
+                        or a rigger have to use a different site than an illustrator just to get
+                        hired for small jobs? TaskBoard is a single board where any task, in any
+                        skill, can be posted and picked up.
+                    </p>
+                    <p style="color: var(--color-text-muted); margin-top: var(--space-3);">
+                        Think of it less like a storefront and more like a corkboard — tasks get
+                        pinned, creators claim what fits them, and both sides track progress until
+                        it's done.
+                    </p>
+                </div>
+
+                <div class="value-list">
+                    <div>
+                        <h3>Any skill, one board</h3>
+                        <p>Art, code, editing, writing, audio, design — one place to post and one place to browse.</p>
+                    </div>
+                    <div>
+                        <h3>Built for small jobs</h3>
+                        <p>Not every task needs a full agency. TaskBoard is for the in-between-sized work.</p>
+                    </div>
+                    <div>
+                        <h3>Clear status, always</h3>
+                        <p>Every task has a visible status, so nobody's left guessing where things stand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="cta-band">
+                    <div>
+                        <h2>Ready to see who's on the board?</h2>
+                        <p>Browse current creators or post your first task.</p>
+                    </div>
+                    <a href="browse.html" class="btn btn-primary">Browse Creators</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

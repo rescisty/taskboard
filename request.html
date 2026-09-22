@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Task — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html" class="active">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="wrap">
+                <h1>Post a Task</h1>
+                <p>Describe what you need done. This is TaskBoard's core transaction — once the back end is connected, this form will save your request to the database.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="wrap">
+                <!--
+                    Back-end note: on submit, this form should POST to a PHP script
+                    (e.g. php/submit_request.php) which validates the input server-side,
+                    inserts a row into a `requests` table, and returns a confirmation.
+                    Client-side validation below is a first line of defense only.
+                -->
+                <form class="request-form form-card" novalidate>
+                    <p class="form-success"></p>
+
+                    <div class="field">
+                        <label for="req-name">Your name</label>
+                        <input type="text" id="req-name" name="name" placeholder="Jane Cruz">
+                        <p class="field-error">Please enter your name.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="req-email">Email</label>
+                        <input type="email" id="req-email" name="email" placeholder="jane@example.com">
+                        <p class="field-error">Please enter a valid email address.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="req-category">Category</label>
+                        <select id="req-category" name="category">
+                            <option value="">Choose a category</option>
+                            <option value="art">Art &amp; Illustration</option>
+                            <option value="coding">Programming &amp; Development</option>
+                            <option value="editing">Video &amp; Photo Editing</option>
+                            <option value="3d">3D Modeling &amp; Rigging</option>
+                            <option value="writing">Writing &amp; Journalism</option>
+                            <option value="audio">Audio &amp; Music</option>
+                            <option value="design">Design</option>
+                        </select>
+                        <p class="field-error">Please choose a category.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="req-budget">Budget (USD)</label>
+                        <input type="number" id="req-budget" name="budget" min="1" step="1" placeholder="50">
+                        <p class="field-error">Budget must be a positive number.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="req-details">Task details</label>
+                        <textarea id="req-details" name="details" placeholder="What do you need done, and by when?"></textarea>
+                        <p class="field-error">Tell us a bit about the task.</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit Task</button>
+                    <p class="form-note">Fields are checked in your browser right now. A PHP script will re-check and store this once the back end is connected.</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
