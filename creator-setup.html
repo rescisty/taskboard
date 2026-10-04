@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up Your Profile — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li class="nav-divider"><a href="login.html">Log In</a></li>
+                    <li><a href="signup.html" class="nav-cta">Sign Up</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="wrap">
+                <h1>Set up your creator profile</h1>
+                <p>This runs right after a creator signs up and accepts the ToS, before they can take tasks. Shown here as a single page — each step will become its own PHP-handled step later.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="wizard">
+                    <div class="wizard-steps">
+                        <div class="wizard-step is-current">
+                            <span class="num">1</span>
+                            <span>Basics</span>
+                        </div>
+                        <div class="wizard-step">
+                            <span class="num">2</span>
+                            <span>Categories</span>
+                        </div>
+                        <div class="wizard-step">
+                            <span class="num">3</span>
+                            <span>First service</span>
+                        </div>
+                    </div>
+
+                    <div class="wizard-panel">
+                        <!--
+                            Back-end note: this will eventually POST to
+                            php/creator_setup.php across a few steps, inserting
+                            into `creator_profiles` (and `services` for step 3),
+                            linked to the logged-in user's id from the session.
+                        -->
+                        <form class="form-card">
+                            <h2 style="margin-bottom: var(--space-4);">Basics</h2>
+
+                            <div class="field">
+                                <label>Banner image</label>
+                                <div class="upload-box banner-upload">Click or drag a banner image here</div>
+                            </div>
+
+                            <div class="field">
+                                <label>Avatar</label>
+                                <div class="upload-box avatar-upload">Avatar</div>
+                            </div>
+
+                            <div class="field">
+                                <label for="setup-display-name">Display name</label>
+                                <input type="text" id="setup-display-name" placeholder="How clients will see you">
+                            </div>
+
+                            <div class="field">
+                                <label for="setup-bio">Short bio</label>
+                                <textarea id="setup-bio" placeholder="A couple sentences about what you do and your turnaround time."></textarea>
+                            </div>
+
+                            <div class="field" style="margin-bottom: 0;">
+                                <label>Categories you work in</label>
+                                <div class="category-check-grid">
+                                    <label class="category-check"><input type="checkbox"> Art &amp; Illustration</label>
+                                    <label class="category-check"><input type="checkbox"> Coding &amp; Development</label>
+                                    <label class="category-check"><input type="checkbox"> Video &amp; Photo Editing</label>
+                                    <label class="category-check"><input type="checkbox"> 3D &amp; Rigging</label>
+                                    <label class="category-check"><input type="checkbox"> Writing</label>
+                                    <label class="category-check"><input type="checkbox"> Audio &amp; Music</label>
+                                    <label class="category-check"><input type="checkbox"> Design</label>
+                                </div>
+                            </div>
+
+                            <div class="wizard-actions">
+                                <span></span>
+                                <button type="submit" class="btn btn-primary">Continue</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

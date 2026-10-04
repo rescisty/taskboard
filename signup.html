@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li class="nav-divider"><a href="login.html">Log In</a></li>
+                    <li><a href="signup.html" class="nav-cta">Sign Up</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrap auth-wrap">
+            <div class="auth-card">
+                <div class="form-card">
+                    <h1>Create your account</h1>
+                    <p>Free to join. Pick how you'll use TaskBoard.</p>
+
+                    <!--
+                        Back-end note: POST to php/signup.php. Validate server-side,
+                        hash the password with password_hash(), insert into `users`
+                        with a role column ('client' or 'creator'). If role = creator,
+                        redirect to creator-setup.html after account creation;
+                        otherwise redirect to browse.html.
+                    -->
+                    <form class="auth-form signup-form" novalidate>
+                        <div class="role-toggle" role="radiogroup" aria-label="Account type">
+                            <label class="role-option is-selected">
+                                <input type="radio" name="role" value="client" checked>
+                                <span>I want to commission</span>
+                                <small>Post tasks, hire creators</small>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="creator">
+                                <span>I'm a creator</span>
+                                <small>Take on tasks, get paid</small>
+                            </label>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-name">Name</label>
+                            <input type="text" id="signup-name" name="name" placeholder="Jane Cruz">
+                            <p class="field-error">Please enter your name.</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" name="email" placeholder="you@example.com">
+                            <p class="field-error">Please enter a valid email address.</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" name="password" placeholder="At least 8 characters">
+                            <p class="field-error">Password must be at least 8 characters.</p>
+                        </div>
+
+                        <div class="checkbox-field">
+                            <input type="checkbox" id="signup-tos" name="tos">
+                            <label for="signup-tos">I agree to the <a href="tos.html">Terms of Service</a></label>
+                        </div>
+                        <p class="field-error" id="tos-error">You must agree to the Terms of Service to continue.</p>
+
+                        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                    </form>
+                </div>
+
+                <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
