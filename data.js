@@ -5,6 +5,50 @@
    same shape of objects, and the rendering code in main.js won't need to change.
    ========================================================================== */
 
+/* Open task requests — what a client posts on the "leave a task, any
+   creator can claim it" side of the board. Separate from CREATORS since
+   a task isn't tied to one person until a creator picks it up.
+   Later: replace this with a fetch() to a PHP endpoint reading the
+   `requests` table, most recent / open ones first. */
+const TASKS = [
+    {
+        id: 101,
+        category: "coding",
+        categoryLabel: "Coding",
+        title: "Fix checkout bug",
+        budget: 80,
+        meta: "2 days",
+        status: "open"
+    },
+    {
+        id: 102,
+        category: "art",
+        categoryLabel: "Illustration",
+        title: "Character sheet",
+        budget: 150,
+        meta: "open",
+        status: "open"
+    },
+    {
+        id: 103,
+        category: "editing",
+        categoryLabel: "Editing",
+        title: "Trim podcast ep.",
+        budget: 45,
+        meta: "claimed",
+        status: "claimed"
+    },
+    {
+        id: 104,
+        category: "writing",
+        categoryLabel: "Writing",
+        title: "Product descriptions",
+        budget: 35,
+        meta: "open",
+        status: "open"
+    }
+];
+
 const CREATORS = [
     {
         id: 1,

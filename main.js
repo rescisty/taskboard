@@ -12,6 +12,7 @@ var lenis = null;
 document.addEventListener("DOMContentLoaded", function () {
     initLenis();
     initNavToggle();
+    initTaskPins();
     initCreatorGrids();
     initRequestForm();
     initProfileScrollEffects();
@@ -122,6 +123,24 @@ function featuredCardMarkup(creator) {
             '</div>' +
         '</a>'
     );
+}
+
+function taskPinMarkup(task, index) {
+    // pin-1/2/3 control each card's position + tilt in the cluster (see CSS)
+    var positionClass = "pin-" + ((index % 3) + 1);
+    return (
+        '<article class="pin-card ' + positionClass + '">' +
+            '<p class="tag">' + task.categoryLabel + '</p>' +
+            '<h4>' + task.title + '</h4>' +
+            '<p>Budget $' + task.budget + ' &middot; ' + task.meta + '</p>' +
+        '</article>'
+    );
+}
+
+function initTaskPins() {
+    var container = document.querySelector('[data-task-pins]');
+    if (!container || typeof TASKS === "undefined") return;
+    container.innerHTML = TASKS.slice(0, 3).map(taskPinMarkup).join("");
 }
 
 function initCreatorGrids() {
