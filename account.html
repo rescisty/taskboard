@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account — TaskBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="logo">Task<span>Board</span></a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="request.html">Post a Task</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li class="nav-divider nav-auth-link"><a href="login.html">Log In</a></li>
+                    <li class="nav-auth-link"><a href="signup.html" class="nav-cta">Sign Up</a></li>
+                    <li class="nav-account"><a href="account.html" class="account-avatar" aria-label="Your account"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path></svg></a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="wrap">
+                <h1>Your Account</h1>
+                <p>Placeholder account page. Real data (name, role, posted tasks or services) will load here once sessions and the database are connected.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="wrap">
+                <div class="form-card">
+                    <p style="color: var(--color-text-muted); margin-bottom: var(--space-4);">
+                        You're viewing this page because TaskBoard thinks you're signed in
+                        (stored locally in your browser for this front-end demo, not a real session).
+                    </p>
+                    <button class="btn btn-outline btn-block" id="logout-btn">Log Out</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 TaskBoard. Term project — not a real business.</span>
+            <span>Made with HTML, CSS &amp; JS</span>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById("logout-btn").addEventListener("click", function () {
+            signOut();
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>

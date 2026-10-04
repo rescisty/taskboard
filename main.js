@@ -7,12 +7,68 @@
    Feature 4 (bonus): Scroll-reactive profile banner + portfolio reveal
    ========================================================================== */
 
+var lenis = null;
+
 document.addEventListener("DOMContentLoaded", function () {
+    initLenis();
     initNavToggle();
     initCreatorGrids();
     initRequestForm();
     initProfileScrollEffects();
+    initRoleToggle();
+    initSignupForm();
+    initLoginForm();
+    initAuthNav();
 });
+
+/* ---------- Fake "signed in" nav state ----------
+   No back end yet, so this is simulated with localStorage. Once PHP
+   sessions exist, replace isSignedIn()/signIn()/signOut() with real
+   session checks and this nav logic stays the same. */
+function isSignedIn() {
+    return localStorage.getItem("tb_signed_in") === "1";
+}
+
+function signIn() {
+    localStorage.setItem("tb_signed_in", "1");
+}
+
+function signOut() {
+    localStorage.removeItem("tb_signed_in");
+}
+
+function initAuthNav() {
+    var authLinks = document.querySelectorAll(".nav-auth-link");
+    var accountLi = document.querySelector(".nav-account");
+    var signedIn = isSignedIn();
+
+    authLinks.forEach(function (li) {
+        li.classList.toggle("is-hidden", signedIn);
+    });
+
+    if (accountLi) {
+        accountLi.classList.toggle("is-visible", signedIn);
+    }
+}
+
+/* ---------- Lenis smooth scroll ---------- */
+function initLenis() {
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion || typeof Lenis === "undefined") return;
+
+    lenis = new Lenis({
+        duration: 1.1,
+        smoothWheel: true
+    });
+
+    // Lenis needs to be told to update on every animation frame —
+    // this is what actually drives the eased scroll motion.
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+}
 
 /* ---------- Feature 1: Mobile nav toggle ---------- */
 function initNavToggle() {
@@ -54,12 +110,26 @@ function renderCreators(grid, list) {
     grid.innerHTML = list.map(creatorCardMarkup).join("");
 }
 
+function featuredCardMarkup(creator) {
+    // Every featured creator links to the profile page template for now —
+    // once profiles are dynamic, this becomes profile.php?id=<creator.id>.
+    return (
+        '<a class="featured-card" href="template.html">' +
+            '<div class="featured-card__info">' +
+                '<p class="featured-card__category">' + creator.categoryLabel + '</p>' +
+                '<h3 class="featured-card__name">' + creator.name + '</h3>' +
+                '<p class="featured-card__price">From $' + creator.price + '</p>' +
+            '</div>' +
+        '</a>'
+    );
+}
+
 function initCreatorGrids() {
     if (typeof CREATORS === "undefined") return;
 
-    var featuredGrid = document.querySelector('[data-creator-grid="featured"]');
+    var featuredGrid = document.querySelector('[data-featured-grid]');
     if (featuredGrid) {
-        renderCreators(featuredGrid, CREATORS.slice(0, 4));
+        featuredGrid.innerHTML = CREATORS.slice(0, 3).map(featuredCardMarkup).join("");
     }
 
     var browseGrid = document.querySelector('[data-creator-grid="all"]');
@@ -199,6 +269,90 @@ function validateBudget(input) {
     return true;
 }
 
+/* ---------- Signup: role toggle (client vs creator) ---------- */
+function initRoleToggle() {
+    var options = document.querySelectorAll(".role-option");
+    if (!options.length) return;
+
+    options.forEach(function (option) {
+        var input = option.querySelector("input");
+        option.addEventListener("click", function () {
+            options.forEach(function (o) { o.classList.remove("is-selected"); });
+            option.classList.add("is-selected");
+            if (input) input.checked = true;
+        });
+    });
+}
+
+/* ---------- Login form validation ---------- */
+function initLoginForm() {
+    var form = document.querySelector(".login-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var isValid = true;
+
+        var email = form.querySelector("#login-email");
+        var password = form.querySelector("#login-password");
+
+        isValid = validateEmail(email) && isValid;
+        isValid = validateRequired(password, "Please enter your password.") && isValid;
+
+        if (isValid) {
+            // Back end will check credentials against the database here.
+            signIn();
+            window.location.href = "browse.html";
+        }
+    });
+}
+
+/* ---------- Signup form validation ---------- */
+function initSignupForm() {
+    var form = document.querySelector(".signup-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var isValid = true;
+
+        var name = form.querySelector("#signup-name");
+        var email = form.querySelector("#signup-email");
+        var password = form.querySelector("#signup-password");
+        var tos = form.querySelector("#signup-tos");
+        var tosError = document.getElementById("tos-error");
+        var selectedRole = form.querySelector('input[name="role"]:checked');
+
+        isValid = validateRequired(name, "Please enter your name.") && isValid;
+        isValid = validateEmail(email) && isValid;
+
+        if (!password || password.value.length < 8) {
+            setError(password, "Password must be at least 8 characters.");
+            isValid = false;
+        } else {
+            clearError(password);
+        }
+
+        if (!tos || !tos.checked) {
+            if (tosError) tosError.classList.add("is-visible");
+            isValid = false;
+        } else if (tosError) {
+            tosError.classList.remove("is-visible");
+        }
+
+        if (isValid) {
+            // Back end will create the account here and redirect based on role.
+            signIn();
+            var role = selectedRole ? selectedRole.value : "client";
+            if (role === "creator") {
+                window.location.href = "creator-setup.html";
+            } else {
+                window.location.href = "browse.html";
+            }
+        }
+    });
+}
+
 /* ---------- Feature 4 (bonus): Profile banner + portfolio reveal ---------- */
 function initProfileScrollEffects() {
     var banner = document.querySelector(".profile-banner");
@@ -206,13 +360,25 @@ function initProfileScrollEffects() {
         var maxHeight = 260;
         var minHeight = 140;
 
-        window.addEventListener("scroll", function () {
-            var scrollY = window.scrollY || window.pageYOffset;
+        function updateBanner(scrollY) {
             var newHeight = maxHeight - scrollY * 0.5;
             if (newHeight < minHeight) newHeight = minHeight;
             if (newHeight > maxHeight) newHeight = maxHeight;
             banner.style.height = newHeight + "px";
-        });
+        }
+
+        if (lenis) {
+            // Lenis is intercepting scroll, so read position from its own
+            // event instead of the native one, which won't match while
+            // Lenis is still animating toward the target position.
+            lenis.on("scroll", function (e) {
+                updateBanner(e.scroll);
+            });
+        } else {
+            window.addEventListener("scroll", function () {
+                updateBanner(window.scrollY || window.pageYOffset);
+            });
+        }
     }
 
     var portfolioCards = document.querySelectorAll(".portfolio-card");
