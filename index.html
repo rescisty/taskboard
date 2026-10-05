@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskBoard — Post a task, hire a creator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,6 +17,7 @@
                 <ul>
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
+                    <li><a href="tasks.html">Tasks</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="request.html">Post a Task</a></li>
                     <li><a href="status.html">Status</a></li>
@@ -43,29 +44,27 @@
                         <a href="browse.html" class="btn btn-outline">Browse Creators</a>
                     </div>
                 </div>
-                <div class="pin-cluster" data-task-pins></div>
+                <div class="hero-board">
+                    <div class="pin-cluster" data-task-pins></div>
+                    <a class="board-live" href="tasks.html">
+                        <span class="board-live__dot" aria-hidden="true"></span>
+                        <span data-board-count>Open tasks right now</span>
+                        <span class="board-live__go">See all tasks &rarr;</span>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <section class="categories">
-            <div class="categories-marquee">
-                <ul class="marquee-track">
-                    <li><a href="browse.html?category=art" class="chip">Art &amp; Illustration</a></li>
-                    <li><a href="browse.html?category=coding" class="chip">Programming &amp; Development</a></li>
-                    <li><a href="browse.html?category=editing" class="chip">Video &amp; Photo Editing</a></li>
-                    <li><a href="browse.html?category=3d" class="chip">3D Modeling &amp; Rigging</a></li>
-                    <li><a href="browse.html?category=writing" class="chip">Writing &amp; Journalism</a></li>
-                    <li><a href="browse.html?category=audio" class="chip">Audio &amp; Music</a></li>
-                    <li><a href="browse.html?category=design" class="chip">Design</a></li>
-                    <!-- duplicated so the loop is seamless -->
-                    <li aria-hidden="true"><a href="browse.html?category=art" class="chip">Art &amp; Illustration</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=coding" class="chip">Programming &amp; Development</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=editing" class="chip">Video &amp; Photo Editing</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=3d" class="chip">3D Modeling &amp; Rigging</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=writing" class="chip">Writing &amp; Journalism</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=audio" class="chip">Audio &amp; Music</a></li>
-                    <li aria-hidden="true"><a href="browse.html?category=design" class="chip">Design</a></li>
-                </ul>
+        <section class="scroll-story" data-scroll-story>
+            <div class="scroll-story-sticky">
+                <div class="wrap">
+                    <p class="eyebrow scroll-story-eyebrow">What's on the board</p>
+                    <p class="scroll-story-text" data-scroll-text data-highlights="art:coral,code:sage,edits:mustard,words:blush,music:sky">Art, code, edits, words, music. Whatever you need made, a creator on the board is ready to make it.</p>
+                </div>
+                <div class="scroll-story-foot" aria-hidden="true">
+                    <span class="scroll-cue">Scroll</span>
+                    <span class="scroll-progress"><span class="scroll-progress-fill"></span></span>
+                </div>
             </div>
         </section>
 
