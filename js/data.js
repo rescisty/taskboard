@@ -226,3 +226,27 @@ const CREATORS = [
         status: "open"
     }
 ];
+
+
+/* Private chat (mock). Later: a `messages` table (conversation/sender/body/time)
+   read and written through PHP. */
+const CONVERSATIONS = [
+    { id: 1, name: "Mira Solano", about: "Character Sheet — Fox Ranger", messages: [
+        { from: "them", text: "Hi! I saw your request for the fox ranger sheet. Do you have a reference for the armor?", time: "10:42" },
+        { from: "me", text: "Yes, I'll send a moodboard in a bit.", time: "10:45" },
+        { from: "them", text: "Perfect, I can start Monday.", time: "10:47" }
+    ] },
+    { id: 2, name: "Devon Cruz", about: "Fix checkout bug", messages: [
+        { from: "them", text: "Found it. The Pay button breaks in Safari. Should have a fix today.", time: "09:10" }
+    ] },
+    { id: 3, name: "Jane C.", about: "Product descriptions", messages: [
+        { from: "them", text: "Could you do a warmer tone for the mug descriptions?", time: "Yesterday" }
+    ] }
+];
+
+/* Ratings (mock). Matches the `reviews` table: one 1-5 rating per finished task. */
+const REVIEWS = [
+    { creator: "Mira Solano", client: "Jane C.", rating: 5, comment: "Fast, friendly and exactly what I pictured.", date: "2 weeks ago" },
+    { creator: "Mira Solano", client: "Marco D.", rating: 4, comment: "Great linework. One small revision and it was perfect.", date: "1 month ago" },
+    { creator: "Mira Solano", client: "Aiko T.", rating: 5, comment: "Communicated clearly the whole way through.", date: "2 months ago" }
+];

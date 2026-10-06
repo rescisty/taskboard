@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
     initTaskPins();
     initTaskBoard();
+    initChat();
+    initRatings();
+    initProfileReviews();
     initCreatorGrids();
     initRequestForm();
     initProfileScrollEffects();
@@ -801,4 +804,135 @@ function initScrollStory() {
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     update();
+}
+
+
+/* ---------- Feature 7: Chat (messages.html) ---------- */
+function initChat() {
+    var list = document.querySelector("[data-chat-list]");
+    if (!list || typeof CONVERSATIONS === "undefined") return;
+
+    var layout = document.querySelector(".chat");
+    var thread = document.querySelector("[data-chat-thread]");
+    var title = document.querySelector("[data-chat-title]");
+    var form = document.querySelector("[data-chat-form]");
+    var input = document.querySelector("[data-chat-input]");
+    var current = null;
+
+    function renderList() {
+        list.innerHTML = CONVERSATIONS.map(function (c) {
+            return '<button class="chat-item' + (c === current ? ' is-active' : '') + '" data-id="' + esc(c.id) + '">' +
+                '<span class="chat-avatar">' + esc(c.name.charAt(0)) + '</span>' +
+                '<span><strong>' + esc(c.name) + '</strong><small>' + esc(c.about) + '</small></span></button>';
+        }).join("");
+    }
+
+    function renderThread() {
+        title.textContent = current.name + " \u00b7 " + current.about;
+        thread.innerHTML = current.messages.map(function (m) {
+            return '<p class="bubble bubble-' + m.from + '">' + esc(m.text) + '<time>' + esc(m.time) + '</time></p>';
+        }).join("");
+        thread.scrollTop = thread.scrollHeight;
+    }
+
+    function open(c) {
+        current = c;
+        layout.classList.add("is-open");
+        renderList();
+        renderThread();
+    }
+
+    list.addEventListener("click", function (e) {
+        var b = e.target.closest(".chat-item");
+        if (b) open(CONVERSATIONS.filter(function (c) { return String(c.id) === b.getAttribute("data-id"); })[0]);
+    });
+
+    document.querySelector("[data-chat-back]").addEventListener("click", function () {
+        layout.classList.remove("is-open");
+    });
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var text = input.value.trim();
+        if (!text || !current) return;
+        current.messages.push({ from: "me", text: text, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
+        input.value = "";
+        renderThread();
+    });
+
+    renderList();
+    if (window.matchMedia("(min-width: 761px)").matches) open(CONVERSATIONS[0]);
+}
+
+/* ---------- Feature 8: Ratings ----------
+   Status page: finished tasks get a "Rate" button -> 1-5 stars.
+   Profile page: average rating + reviews. */
+function initRatings() {
+    var table = document.querySelector(".status-table");
+    var dlg = document.getElementById("rate-dialog");
+    if (!table || !dlg) return;
+
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem("tb_ratings") || "{}"); } catch (e) { saved = {}; }
+    var target = null;
+
+    table.querySelector("thead tr").insertAdjacentHTML("beforeend", "<th>Rating</th>");
+
+    table.querySelectorAll("tbody tr").forEach(function (row) {
+        var cell = row.insertCell();
+        var key = row.cells[0].textContent.trim();
+        var done = !!row.querySelector(".badge-done");
+
+        function paint() {
+            if (!done) cell.innerHTML = "&mdash;";
+            else if (saved[key]) cell.innerHTML = '<span class="stars" style="--rating:' + saved[key].rating + '" aria-label="You rated ' + saved[key].rating + ' out of 5"></span>';
+            else cell.innerHTML = '<button class="btn btn-outline btn-sm" type="button">Rate</button>';
+        }
+        paint();
+
+        cell.addEventListener("click", function (e) {
+            if (!e.target.closest("button")) return;
+            target = { key: key, paint: paint };
+            dlg.querySelector("[data-rate-for]").textContent = row.cells[2].textContent.trim();
+            dlg.showModal();
+        });
+    });
+
+    dlg.querySelector("form").addEventListener("submit", function (e) {
+        if (e.submitter && e.submitter.value === "cancel") return;
+        var chosen = dlg.querySelector("input[name=stars]:checked");
+        if (!chosen) {
+            e.preventDefault();
+            dlg.querySelector(".rate-error").hidden = false;
+            return;
+        }
+        saved[target.key] = { rating: Number(chosen.value), comment: dlg.querySelector("textarea").value.trim() };
+        localStorage.setItem("tb_ratings", JSON.stringify(saved));
+        target.paint();
+    });
+
+    dlg.addEventListener("close", function () {
+        dlg.querySelector("form").reset();
+        dlg.querySelector(".rate-error").hidden = true;
+    });
+}
+
+function initProfileReviews() {
+    var box = document.querySelector("[data-reviews]");
+    var name = document.querySelector(".profile-identity h1, .profile-identity h2");
+    if (!box || !name || typeof REVIEWS === "undefined") return;
+
+    var mine = REVIEWS.filter(function (r) { return r.creator === name.textContent.trim(); });
+    if (mine.length === 0) {
+        box.innerHTML = "<p>No reviews yet.</p>";
+        return;
+    }
+
+    var avg = mine.reduce(function (sum, r) { return sum + r.rating; }, 0) / mine.length;
+    name.insertAdjacentHTML("afterend", '<p class="rating-summary"><span class="stars" style="--rating:' + avg.toFixed(1) + '" aria-hidden="true"></span><strong>' + avg.toFixed(1) + '</strong> (' + mine.length + ' reviews)</p>');
+
+    box.innerHTML = mine.map(function (r) {
+        return '<div class="review"><span class="stars" style="--rating:' + r.rating + '" aria-label="' + r.rating + ' out of 5"></span>' +
+            '<p>' + esc(r.comment) + '</p><small>' + esc(r.client) + ' &middot; ' + esc(r.date) + '</small></div>';
+    }).join("");
 }
